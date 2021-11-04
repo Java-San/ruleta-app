@@ -1,4 +1,13 @@
 <app-navbar></app-navbar>
+<div class="alert alert-danger d-flex align-items-center fixed-top" role="alert" *ngIf="showAlert">
+  <div class="container-fluid row">
+    <div class="col-6 col-md-6 text-start"> {{ alertMessage }} </div>
+
+    <div class="col-6 col-md-6 text-end">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="closeAlert()"></button>
+    </div>
+  </div>
+</div>
 
 <section class="container text-center">
   <label for="" class="display-5 p-3"> Ingresar nuevo usuario </label>
@@ -58,46 +67,22 @@
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title"> {{ user.nombre }} </h5>
-            <p class="m-0 fw-bold"> Correo: <span class="fw-light"> {{ user.correo }} </span> </p>
+
+            <p class="m-0 fw-bold"> Correo:
+              <span class="fw-light"> {{ user.correo }} </span>
+            </p>
             <p class="m-0 fw-bold"> Saldo: <span class="fw-light"> {{ user.saldo }} </span> </p>
+          </div>
 
-            <div class="card-footer">
-              <div class="row text-center">
-                <div class="col-6 col-md-6">
-                  <!-- (click)="editUser()" -->
-                  <button class="btn btn-primary text-start" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Editar </button>
+          <div class="card-footer">
+            <div class="row text-center">
+              <div class="col-6 col-md-6">
+                <!--  -->
+                <button class="btn btn-primary text-start" (click)="goToEdit(user)"> Editar </button>
+              </div>
 
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <form>
-                            <div class="mb-3">
-                              <label for="recipient-name" class="col-form-label">Recipient:</label>
-                              <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="mb-3">
-                              <label for="message-text" class="col-form-label">Message:</label>
-                              <textarea class="form-control" id="message-text"></textarea>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-primary">Send message</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-6 col-md-6">
-                  <button class="btn btn-danger text-end" (click)="deleteUser()"> Eliminar </button>
-                </div>
+              <div class="col-6 col-md-6">
+                <button class="btn btn-danger text-end" (click)="deleteUser( user._id )"> Eliminar </button>
               </div>
             </div>
           </div>

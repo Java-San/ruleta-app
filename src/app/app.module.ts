@@ -8,6 +8,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { RouletteComponent } from './pages/roulette/roulette.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditFormComponent } from './components/edit-form/edit-form.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HistoryComponent,
     UsersComponent,
     RouletteComponent,
-    NavbarComponent
+    NavbarComponent,
+    EditFormComponent
   ],
   imports: [
     BrowserModule,

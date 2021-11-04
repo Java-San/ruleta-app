@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+
+<div class="alert alert-danger d-flex align-items-center fixed-top" role="alert" *ngIf="showAlert">
+  <div class="container-fluid row">
+    <div class="col-6 col-md-6 text-start"> No se pudo editar el usuario intenta nuevamente </div>
+
+    <div class="col-6 col-md-6 text-end">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="closeAlert()"></button>
+    </div>
+  </div>
+</div>
+
+<section class="container text-center">
+  <label for="" class="display-5 p-3"> Editar Usuario </label>
+  <div class="card" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4 d-flex">
+        <img src="../../../assets/avatar-small.png" class="img-fluid rounded-start p-3" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <form [formGroup]="newUserForm" (ngSubmit)="edit()" class="text-start form-floating">
+            <div class="mb-3">
+              <!-- <label for="inputName" class="form-label"> Nombre </label> -->
+              <div class="form-text"> El nombre debe contener más de 6 carácteres </div>
+              <input type="text" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': f.name.errors }" [value]="user.nombre">
+
+              <div *ngIf="f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required"> El nombre es requerido </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <!-- <label for="inputEmail" class="form-label"> Correo </label> -->
+              <div class="form-text"> Debes ingresar un correo válido </div>
+              <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': f.name.errors }">
+
+              <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required"> El correo es requerido </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-6 col-md-6 text-start">
+                <button type="submit" class="btn btn-success"> Editar </button>
+              </div>
+
+              <div class="col-6 col-md-6 text-end">
+                <button type="button" class="btn btn-danger" (click)="cancel()"> Cancelar </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

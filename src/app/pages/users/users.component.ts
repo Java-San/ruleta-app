@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -14,12 +15,17 @@ export class UsersComponent implements OnInit {
 
   emptyUsers: boolean = true;
 
+  alertMessage: string = '';
+  showAlert: boolean = false;
+
   constructor(
     private service: DataService,
-    private form: FormBuilder
+    private form: FormBuilder,
+    private router: Router
   ) {
 
   }
+
 
   ngOnInit(): void {
     // definimos el formulario
@@ -50,6 +56,8 @@ export class UsersComponent implements OnInit {
       })
       .catch( (error: any) => {
         console.error( error );
+        this.showAlert = true;
+        this.alertMessage = 'No se pudo obtener los usuarios, intente nuevamente'
       } )
   };
 
@@ -66,34 +74,40 @@ export class UsersComponent implements OnInit {
 
     await this.service.postData( this.auxEndpoint, body )
       .then( async (res: any) => {
-        if( res.status === 200 ) await this.getUsers();
+        if( res.status === 200 ){
+          await this.getUsers();
+
+          this.showAlert = false;
+          this.alertMessage = '';
+        }
       })
       .catch( (error: any) => {
         console.error( error );
+        this.showAlert = true;
+        this.alertMessage = 'No se pudo crear el usuario, intente nuevamente'
       } )
   };
 
-  async editUser(){
-    let body: any = null;
+  async goToEdit( user: any){
+    this.router.navigate(['/edit', user ])
+    console.log('user to edit', user, );
 
-    console.log('edit');
-    await this.service.putData( this.auxEndpoint, body )
-      .then( (res: any) => {
-        console.log( 'get users', res );
-      })
-      .catch( (error: any) => {
-        console.error( error );
-      } )
   };
 
-  async deleteUser(){
+  async deleteUser( id: any ){
     console.log( 'delete' )
-    await this.service.deleteData( this.auxEndpoint )
+    await this.service.deleteData( `${this.auxEndpoint}/${id}` )
       .then( (res: any) => {
-        console.log( 'get users', res );
+        if( res.status === 200 ) this.getUsers();
       })
       .catch( (error: any) => {
         console.error( error );
+        this.showAlert = true;
+        this.alertMessage = 'No se pudo eliminar el usuario, intente nuevamente'
       } )
   };
+
+  closeAlert(){
+    this.showAlert = false;
+  }
 }
