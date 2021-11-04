@@ -6,19 +6,22 @@ import { AppComponent } from './app.component';
 import { HistoryComponent } from './pages/history/history.component';
 import { UsersComponent } from './pages/users/users.component';
 import { RouletteComponent } from './pages/roulette/roulette.component';
-
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HistoryComponent,
     UsersComponent,
-    RouletteComponent
+    RouletteComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

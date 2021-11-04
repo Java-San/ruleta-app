@@ -1,25 +1,108 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-5">
-  <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/"> Juego Ruleta </a>
+<app-navbar></app-navbar>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <!-- historial -->
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/"> Historial </a>
-        </li>
+<section class="container text-center">
+  <label for="" class="display-5 p-3"> Ingresar nuevo usuario </label>
+  <div class="card" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4 d-flex">
+        <img src="../../../assets/avatar.png" class="img-fluid rounded-start p-3" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"> Ingresar datos </h5>
 
-        <!-- Usuarios -->
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/users"> Usuarios </a>
-        </li>
+          <form [formGroup]="newUserForm" (ngSubmit)="createUser()" class="text-start form-floating">
+            <div class="mb-3">
+              <label for="inputName" class="form-label"> Nombre </label>
+              <div class="form-text"> El nombre debe contener más de 6 carácteres </div>
+              <input type="text" class="form-control" formControlName="name" [ngClass]="{ 'is-invalid': f.name.errors }">
 
-        <!-- Jugar -->
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/roulette"> Iniciar Ruleta </a>
-        </li>
-      </ul>
+              <div *ngIf="f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required"> El nombre es requerido </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label"> Correo </label>
+              <div class="form-text"> Debes ingresar un correo válido </div>
+              <input type="email" class="form-control" formControlName="email" [ngClass]="{ 'is-invalid': f.name.errors }">
+
+              <div *ngIf="f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required"> El correo es requerido </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary"> Crear Usuario </button>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
-</nav>
- <h1> usrrs </h1>
+</section>
+
+<section class="container text-center">
+  <label for="" class="display-5 p-3"> Usuarios Registrados </label>
+
+  <div class="alert alert-primary text-center" role="alert" *ngIf="emptyUsers === true; else showUsers">
+    <div>
+      No hemos encontrado usuarios registrados
+    </div>
+  </div>
+
+  <ng-template #showUsers>
+    <div class="card mb-3" style="max-width: 540px;" *ngFor="let user of users">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="../../../assets/avatar-small.png" class="img-fluid rounded-start p-3" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title"> {{ user.nombre }} </h5>
+            <p class="m-0 fw-bold"> Correo: <span class="fw-light"> {{ user.correo }} </span> </p>
+            <p class="m-0 fw-bold"> Saldo: <span class="fw-light"> {{ user.saldo }} </span> </p>
+
+            <div class="card-footer">
+              <div class="row text-center">
+                <div class="col-6 col-md-6">
+                  <!-- (click)="editUser()" -->
+                  <button class="btn btn-primary text-start" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"> Editar </button>
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="mb-3">
+                              <label for="recipient-name" class="col-form-label">Recipient:</label>
+                              <input type="text" class="form-control" id="recipient-name">
+                            </div>
+                            <div class="mb-3">
+                              <label for="message-text" class="col-form-label">Message:</label>
+                              <textarea class="form-control" id="message-text"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary">Send message</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6 col-md-6">
+                  <button class="btn btn-danger text-end" (click)="deleteUser()"> Eliminar </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

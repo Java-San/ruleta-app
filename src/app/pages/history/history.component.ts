@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
-
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -9,6 +8,7 @@ import { DataService } from 'src/app/services/data.service';
 export class HistoryComponent implements OnInit {
 
   private history: any[] = [];
+  private auxEndpoint:string = 'http://localhost:8081'
 
   constructor(
     private dataServcice: DataService
@@ -19,8 +19,14 @@ export class HistoryComponent implements OnInit {
     this.getHistory();
   }
 
-  getHistory(){
+  async getHistory(){
     console.log( 'get history' )
-    this.dataServcice.getData().subscribe(  );
+    await this.dataServcice.getData( `${this.auxEndpoint}/roulette/history` )
+      .then( ( res: any ) => {
+        console.log( 'RES', res );
+      } )
+      .catch( (error: any) => {
+        console.error( error );
+      } );
   }
 }
