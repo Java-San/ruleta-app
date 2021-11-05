@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent implements OnInit {
-  private auxEndpoint:string = 'http://localhost:8081/api/users'
+  private auxEndpoint:string = '/api/users'; //http://localhost:8081
   users: any[] = [];
   newUserForm: any = {};
 
@@ -46,7 +46,6 @@ export class UsersComponent implements OnInit {
   async getUsers(){
     await this.service.getData( this.auxEndpoint )
       .then( (res: any) => {
-        console.log( 'get users', res );
         if( res.status === 200 ){
           this.users = res.data;
 
@@ -86,16 +85,15 @@ export class UsersComponent implements OnInit {
         this.showAlert = true;
         this.alertMessage = 'No se pudo crear el usuario, intente nuevamente'
       } )
+
+    this.newUserForm.reset();
   };
 
   async goToEdit( user: any){
     this.router.navigate(['/edit', user ])
-    console.log('user to edit', user, );
-
   };
 
   async deleteUser( id: any ){
-    console.log( 'delete' )
     await this.service.deleteData( `${this.auxEndpoint}/${id}` )
       .then( (res: any) => {
         if( res.status === 200 ) this.getUsers();

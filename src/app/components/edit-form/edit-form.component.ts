@@ -9,7 +9,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-form.component.css']
 })
 export class EditFormComponent implements OnInit {
-  private auxEndpoint:string = 'http://localhost:8081/api/users'
+  private auxEndpoint:string = '/api/users' //http://localhost:8081
   user: any;
   newUserForm: any = {};
   showAlert: boolean = false;
@@ -51,7 +51,6 @@ export class EditFormComponent implements OnInit {
       correo: email
     };
 
-    console.log( 'body', body )
     await this.service.putData( `${this.auxEndpoint}/${this.user._id}`, body )
       .then( (res: any) => {
         if( res.status === 200 ){

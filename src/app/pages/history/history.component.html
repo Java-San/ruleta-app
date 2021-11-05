@@ -3,140 +3,44 @@
 <section class="container-fluid">
   <h1 class="text-center text-indigo py-3"> <u> Rondas Transcurridas </u></h1>
 
-  <div class="card mx-5">
-    <div class="card-body">
-      <div class="row">
-        <!-- RONDA -->
-        <div class="col-1 col-md-1">
-          <p class="display-6"> n° </p>
-          <span class="display-6"> 1 </span>
-        </div>
+  <div class="alert alert-primary text-center" role="alert" *ngIf="emptyRounds === true; else showRounds">
+    <div>
+      No hemos encontrado rondas jugadas
+    </div>
+  </div>
 
-        <!-- jugadores y sus apuestas-->
-        <div class="col-9 col-md-9">
-          <div class="row">
-            <div class="col-2 col-md-2 py-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-2 col-md-2 py-2">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"> Usuario 1 </h5>
-                  <p class="card-text"> <b class="text-primary"> Apuesta:</b> $ 10000</p>
+  <ng-template #showRounds>
+    <ol class="list-group list-group-numbered">
+      <li class="list-group-item justify-content-between align-items-start py-2"
+          *ngFor="let round of rounds">
+          <span class="badge rounded-pill bg-dark mx-3 px-3"> Fecha ronda: {{ round.fecha }} </span>
+        <div class="row px-3">
+          <!-- jugadores y sus apuestas-->
+          <div class="col-10 col-md-10">
+            <div class="row">
+              <div class="col-2 col-md-2 py-2 py-2" *ngFor="let usr of round.apostadores">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"> {{ usr.nombre }} </h5>
+                    <p class="card-text"> <b class="text-primary"> Apuesta:</b> ${{ usr.apuesta }} </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- color que ha salido -->
-        <div class="col-2 col-md-2 color-roulette">
-          <p class="display-6"> color </p>
+          <!-- color que ha salido -->
+          <div class="col-2 col-md-2 color-roulette">
+            <div class="card m-0" style="max-width: 18rem;" [ngClass]="'border-' + round.resultado">
+              <div class="card-body">
+                <h5 class="card-title text-uppercase text-center m-0" [ngClass]="'body-' + round.resultado"> {{ round.resultado }} </h5>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </li>
+    </ol>
+  </ng-template>
 </section>
 
 

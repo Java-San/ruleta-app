@@ -3,3 +3,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.body-verde{
+  color: green;
+}
+
+.body-rojo{
+  color: red;
+}
+
+.body-negro{
+  color:black;
+}
+
+.border-verde{
+  border-color: green;
+}
+
+.border-rojo{
+  border-color: red;
+}
+
+.border-negro{
+  border-color:black;
+}

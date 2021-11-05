@@ -7,26 +7,39 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class HistoryComponent implements OnInit {
 
-  private history: any[] = [];
-  private auxEndpoint:string = 'http://localhost:8081'
+  rounds: any[] = [];
+  private rouletteEndpoint: string = '/api/roulette'; //http://localhost:8081
+
+  emptyRounds: boolean = false;
+  showAlert: boolean = false;
+
 
   constructor(
     private dataServcice: DataService
   ) { }
 
   ngOnInit(): void {
-    console.log( 'ng init' )
     this.getHistory();
   }
 
   async getHistory(){
-    console.log( 'get history' )
-    await this.dataServcice.getData( `${this.auxEndpoint}/roulette/history` )
+    await this.dataServcice.getData( this.rouletteEndpoint )
       .then( ( res: any ) => {
-        console.log( 'RES', res );
+        if( res.status === 200 ){
+          if( res.data.length !== 0 ){
+            this.rounds = res.data;
+            this.emptyRounds = false;
+            this.showAlert = false;
+          }else{
+            this.emptyRounds = true;
+            this.showAlert = false;
+          }
+        }
       } )
       .catch( (error: any) => {
         console.error( error );
+        this.emptyRounds = true;
+        this.showAlert = true;
       } );
   }
 }

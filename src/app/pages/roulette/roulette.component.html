@@ -1,16 +1,26 @@
 <app-navbar></app-navbar>
 
+<div class="alert alert-danger d-flex align-items-center fixed-top" role="alert" *ngIf="showAlert">
+  <div class="container-fluid row">
+    <div class="col-6 col-md-6 text-start"> {{ alertMessage }} </div>
+
+    <div class="col-6 col-md-6 text-end">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="closeAlert()"></button>
+    </div>
+  </div>
+</div>
+
 <!-- API de clima  -->
 <section class="container my-4">
   <div class="row">
     <div class="col-6 col-md-6 text-start">
-      <span class="badge rounded-pill bg-dark"> Fecha de hoy: {{ dates.today }} </span>
-      <span class="badge rounded-pill bg-info"> Pronóstico mañana: {{ weatherForecast[0] }}° </span>
+      <span class="badge rounded-pill bg-dark mx-3 px-3"> Fecha de hoy: {{ dates.today }} </span>
+      <span class="badge rounded-pill bg-info px-3"> Pronóstico mañana: {{ weatherForecast[0] }}° </span>
     </div>
 
     <div class="col-6 col-md-6 text-end">
-      <span class="badge rounded-pill bg-dark"> Fecha de mañana: {{ dates.tomorrow }} </span>
-      <span class="badge rounded-pill bg-info"> Pronóstico pasado mañana: {{ weatherForecast[1] }}° </span>
+      <span class="badge rounded-pill bg-dark mx-3 px-3"> Fecha de mañana: {{ dates.tomorrow }} </span>
+      <span class="badge rounded-pill bg-info px-3"> Pronóstico pasado mañana: {{ weatherForecast[1] }}° </span>
     </div>
   </div>
 </section>
@@ -32,8 +42,15 @@
               Saldo: {{ user.saldo }}
             </div>
             <div *ngIf="showBet">
-              <span class="badge bg-primary rounded-pill"> Apuesta: {{ user.apuesta }} </span>
-              <span class="badge bg-primary rounded-pill"> {{ user.color }} </span>
+              <div class="row">
+                <div class="col-6 col-md-6 text-start">
+                  <span class="badge bg-primary rounded-pill"> Monto apuesta: {{ user.apuesta }} </span>
+                </div>
+
+                <div class="col-6 col-md-6 text-end">
+                  <span class="badge rounded-pill text-uppercase" [ngClass]="user.color"> {{ user.color }} </span>
+                </div>
+              </div>
             </div>
           </li>
         </ol>
@@ -43,18 +60,20 @@
     <div class="col-6 col-md-6">
       <div class="row mb-4">
         <div class="col-6 col-md-6">
-          <button class="btn btn-dark text-uppercase" [ngClass]="paused ? 'disabled': ''" (click)="startRounds()" (click)="hello()"> Iniciar rondas </button>
+          <button class="btn btn-dark text-uppercase" [ngClass]="paused ? 'disabled': ''" (click)="startRounds()"> Iniciar rondas </button>
         </div>
 
         <div class="col-6 col-md-6">
           <span class="badge bg-info rounded-pill"> Proxima partida en 3 minutos
-            {{ contador }}
           </span>
         </div>
       </div>
 
       <div class="card-group">
         <div class="card border-success mb-3" style="max-width: 18rem;">
+          <div class="card-header text-light text-center text-uppercase"
+              *ngIf="rouletteColor === 'verde' && showResult"
+              [ngClass]="rouletteColor"> jugada ruleta </div>
           <div class="card-body text-success">
             <h5 class="card-title text-uppercase text-center"> verde </h5>
           </div>
@@ -62,6 +81,9 @@
         </div>
 
         <div class="card border-danger mb-3" style="max-width: 18rem;">
+          <div class="card-header text-light text-center text-uppercase"
+              *ngIf="rouletteColor === 'rojo' && showResult"
+              [ngClass]="rouletteColor"> jugada ruleta </div>
           <div class="card-body text-danger">
             <h5 class="card-title text-uppercase text-center"> rojo </h5>
           </div>
@@ -69,6 +91,9 @@
         </div>
 
         <div class="card border-dark mb-3" style="max-width: 18rem;">
+          <div class="card-header text-light text-center text-uppercase"
+              *ngIf="rouletteColor === 'negro' && showResult"
+              [ngClass]="rouletteColor"> jugada ruleta </div>
           <div class="card-body text-dark">
             <h5 class="card-title text-uppercase text-center"> negro </h5>
           </div>
