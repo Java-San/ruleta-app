@@ -249,7 +249,7 @@ export class RouletteComponent implements OnInit, OnDestroy {
     let bodyUsers: any[] = []
     this.users.forEach( (usr: any) => {
       //id, saldo, apuesta
-      bodyUsers.push( { nombre: usr.nombre , saldo: usr.saldo, apuesta: usr.apuesta } );
+      bodyUsers.push( { id: usr._id , nombre: usr.nombre , saldo: usr.saldo, apuesta: usr.apuesta } );
     } );
 
     let body = {
