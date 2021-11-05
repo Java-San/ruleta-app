@@ -1,3 +1,81 @@
 <app-navbar></app-navbar>
 
-<h1> roulette </h1>
+<!-- API de clima  -->
+<section class="container my-4">
+  <div class="row">
+    <div class="col-6 col-md-6 text-start">
+      <span class="badge rounded-pill bg-dark"> Fecha de hoy: {{ dates.today }} </span>
+      <span class="badge rounded-pill bg-info"> Pronóstico mañana: {{ weatherForecast[0] }}° </span>
+    </div>
+
+    <div class="col-6 col-md-6 text-end">
+      <span class="badge rounded-pill bg-dark"> Fecha de mañana: {{ dates.tomorrow }} </span>
+      <span class="badge rounded-pill bg-info"> Pronóstico pasado mañana: {{ weatherForecast[1] }}° </span>
+    </div>
+  </div>
+</section>
+
+<section class="container my-4">
+  <div class="row">
+    <div class="col-6 col-md-6">
+      <div class="alert alert-primary text-center" role="alert" *ngIf="emptyUsers === true; else showUsers">
+        <div>
+          No hemos encontrado usuarios registrados
+        </div>
+      </div>
+
+      <ng-template #showUsers>
+        <ol class="list-group list-group-numbered">
+          <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let user of users">
+            <div class="ms-2 me-auto">
+              <div class="fw-bold"> {{ user.nombre }} </div>
+              Saldo: {{ user.saldo }}
+            </div>
+            <div *ngIf="showBet">
+              <span class="badge bg-primary rounded-pill"> Apuesta: {{ user.apuesta }} </span>
+              <span class="badge bg-primary rounded-pill"> {{ user.color }} </span>
+            </div>
+          </li>
+        </ol>
+      </ng-template>
+    </div>
+
+    <div class="col-6 col-md-6">
+      <div class="row mb-4">
+        <div class="col-6 col-md-6">
+          <button class="btn btn-dark text-uppercase" [ngClass]="paused ? 'disabled': ''" (click)="startRounds()" (click)="hello()"> Iniciar rondas </button>
+        </div>
+
+        <div class="col-6 col-md-6">
+          <span class="badge bg-info rounded-pill"> Proxima partida en 3 minutos
+            {{ contador }}
+          </span>
+        </div>
+      </div>
+
+      <div class="card-group">
+        <div class="card border-success mb-3" style="max-width: 18rem;">
+          <div class="card-body text-success">
+            <h5 class="card-title text-uppercase text-center"> verde </h5>
+          </div>
+          <div class="card-footer bg-success text-light text-center"> Paga x15 </div>
+        </div>
+
+        <div class="card border-danger mb-3" style="max-width: 18rem;">
+          <div class="card-body text-danger">
+            <h5 class="card-title text-uppercase text-center"> rojo </h5>
+          </div>
+          <div class="card-footer bg-danger text-light text-center"> Paga x2 </div>
+        </div>
+
+        <div class="card border-dark mb-3" style="max-width: 18rem;">
+          <div class="card-body text-dark">
+            <h5 class="card-title text-uppercase text-center"> negro </h5>
+          </div>
+          <div class="card-footer bg-dark text-light text-center"> Paga x2 </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

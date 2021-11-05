@@ -9,6 +9,7 @@ import { RouletteComponent } from './pages/roulette/roulette.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditFormComponent } from './components/edit-form/edit-form.component';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { EditFormComponent } from './components/edit-form/edit-form.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    CountdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,9 +5,20 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
+
   private headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
+  };
+
+  private API_KEY = '1464823860b8aa553902bcb49dc663dd';
+  private apiEndpoint = 'https://api.openweathermap.org/data/2.5/onecall'
+
+  private weatherOps = {
+    lat: -33.4569400,
+    lon: -70.6482700,
+    units: 'metric',
+    exclude: 'current,minutely,hourly,alerts'
   };
 
   constructor(
@@ -26,8 +37,6 @@ export class DataService {
           rej(e)
         } );
     });
-
-    //return this.http.get('/roulette/history');http://localhost:8081/
   };
 
   postData(endpoint: string, data: any){
@@ -68,4 +77,17 @@ export class DataService {
         } );
     });
   };
+
+  getWeather(){
+    return new Promise( (resolve, reject) => {
+      this.http.get( this.apiEndpoint + `?lat=${this.weatherOps.lat}&lon=${this.weatherOps.lon}&units=${this.weatherOps.units}&exclude=${this.weatherOps.exclude}&appid=${this.API_KEY}` )
+        .toPromise()
+        .then( (res: any) => {
+          resolve(res)
+        })
+        .catch( (error: any) => {
+          reject(error);
+        } )
+    } );
+  }
 }
